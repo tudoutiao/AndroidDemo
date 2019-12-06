@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+    <FrameLayout
+            android:id="@+id/fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/line"></View>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    >
+        <com.example.myapplication.view.TabItem
+                android:id="@+id/tab1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                app:title="a"
+                app:isCheck="true"
+                app:defaultDrawable="@mipmap/tab_home"
+                app:checkDrawable="@mipmap/tab_home_pre"
+                android:layout_height="wrap_content"
+        />
+        <com.example.myapplication.view.TabItem
+                android:id="@+id/tab2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                app:isCheck="false"
+                app:defaultDrawable="@mipmap/tab_section"
+                app:checkDrawable="@mipmap/tab_section_pre"
+                android:layout_height="wrap_content"
+        />
+        <com.example.myapplication.view.TabItem
+                android:id="@+id/tab3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                app:isCheck="false"
+                app:defaultDrawable="@mipmap/tab_news"
+                app:checkDrawable="@mipmap/tab_news_pre"
+                android:layout_height="wrap_content"
+        />
+        <com.example.myapplication.view.TabItem
+                android:id="@+id/tab4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                app:isCheck="false"
+                app:defaultDrawable="@mipmap/tab_my"
+                app:checkDrawable="@mipmap/tab_my_pre"
+                android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+</LinearLayout>

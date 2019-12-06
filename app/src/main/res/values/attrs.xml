@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabItem">
+        <attr name="title" format="string"/>
+        <attr name="checkDrawable" format="reference|color"/>
+        <attr name="defaultDrawable" format="reference|color"/>
+        <attr name="isCheck" format="boolean"/>
+    </declare-styleable>
+</resources>

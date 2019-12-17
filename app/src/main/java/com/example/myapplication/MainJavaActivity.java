@@ -2,11 +2,14 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.example.myapplication.fragment.MainFragment;
+import com.example.myapplication.fragment.VideoPlayerFragment;
 import com.example.myapplication.view.TabItem;
 
 import java.util.ArrayList;
@@ -42,13 +45,14 @@ public class MainJavaActivity extends AppCompatActivity implements View.OnClickL
         for (int i = 0; i < tabItems.size(); i++) {
             tabItems.get(i).setOnClickListener(this);
         }
+        tabItems.get(0).setChecked(true);
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
 
         mFragments = new Fragment[4];
         mFragments[0] = MainFragment.newInstance();
-        mFragments[1] = MainFragment.newInstance();
+        mFragments[1] = VideoPlayerFragment.newInstance();
         mFragments[2] = MainFragment.newInstance();
         mFragments[3] = MainFragment.newInstance();
 
@@ -63,6 +67,7 @@ public class MainJavaActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        mFragmentTransaction = mFragmentManager.beginTransaction();
         switch (view.getId()) {
             case R.id.tab1: {
                 changeFragment(0);
@@ -80,7 +85,6 @@ public class MainJavaActivity extends AppCompatActivity implements View.OnClickL
                 changeFragment(3);
                 break;
             }
-
         }
     }
 
@@ -90,6 +94,11 @@ public class MainJavaActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         curIndex = index;
+
+        for (int i = 0; i < tabItems.size(); i++) {
+            tabItems.get(i).setChecked(curIndex == i);
+        }
+
         mFragmentTransaction.hide(mFragments[0]).hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]);
         mFragmentTransaction.show(mFragments[curIndex]).commitAllowingStateLoss();
     }

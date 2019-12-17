@@ -29,6 +29,7 @@ import cn.jzvd.VideoInfo;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder> {
 
     private Context mContext;
+    private boolean isScrolling;
     private List<VideoInfo> videoInfos = new ArrayList<>();
 
     public VideoAdapter(Context mContext) {
@@ -40,19 +41,29 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         notifyDataSetChanged();
     }
 
+    public boolean isScrolling() {
+        return isScrolling;
+    }
+
+    public void setScrolling(boolean scrolling) {
+        isScrolling = scrolling;
+    }
+
     @NonNull
     @Override
     public VideoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        VideoHolder viewHolder = new VideoHolder(LayoutInflater.from(mContext).inflate(R.layout.item_videoview, parent, false));
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_videoview, parent, false);
+        VideoHolder viewHolder = new VideoHolder(view);
+        view.setTag(viewHolder);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull VideoHolder holder, int position) {
         VideoInfo videoInfo = videoInfos.get(position);
-        holder.jzvdStd.setUp(videoInfo.getVideoUrl(),
-                "position: " + position,
+        holder.jzvdStd.setUp(videoInfo,
                 Jzvd.SCREEN_NORMAL);
+
         Glide.with(mContext).asBitmap()
                 .load(videoInfo.getVideoImgUrl()).listener(new RequestListener<Bitmap>() {
             @Override
@@ -66,7 +77,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
                 return false;
             }
         }).into(holder.jzvdStd.thumbImageView);
-
+        holder.setVideoInfo(videoInfo);
     }
 
     @Override
@@ -74,12 +85,21 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         return videoInfos.size();
     }
 
-    class VideoHolder extends RecyclerView.ViewHolder {
+    public class VideoHolder extends RecyclerView.ViewHolder {
         JzvdStd jzvdStd;
+        VideoInfo videoInfo;
 
         public VideoHolder(@NonNull View itemView) {
             super(itemView);
             jzvdStd = itemView.findViewById(R.id.videoplayer);
+        }
+
+        public VideoInfo getVideoInfo() {
+            return videoInfo;
+        }
+
+        public void setVideoInfo(VideoInfo videoInfo) {
+            this.videoInfo = videoInfo;
         }
     }
 

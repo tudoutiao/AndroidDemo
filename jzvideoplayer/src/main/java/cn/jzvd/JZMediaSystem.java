@@ -4,7 +4,6 @@ import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.view.Surface;
@@ -197,5 +196,16 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
 
+    }
+
+    @Override
+    public void setSilence(boolean isSilence) {
+        if (null == mediaPlayer)
+            return;
+        if (isSilence) {
+            mediaPlayer.setVolume(0f, 0f);
+        } else {
+            mediaPlayer.setVolume(1f, 1f);
+        }
     }
 }

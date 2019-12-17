@@ -81,6 +81,9 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public int seekToManulPosition = -1;
     public long seekToInAdvance = 0;
 
+    //静音模式  默认为true
+    private boolean isSilencePattern = true;
+
     public ImageView startButton;
     public SeekBar progressBar;
     public ImageView fullscreenButton;
@@ -147,6 +150,10 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         setUp(new JZDataSource(url, title), SCREEN_NORMAL);
     }
 
+    public void setUp(VideoInfo videoInfo, int screen) {
+        setUp(new JZDataSource(videoInfo), screen);
+    }
+
     public void setUp(String url, String title, int screen) {
         setUp(new JZDataSource(url, title), screen);
     }
@@ -158,6 +165,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public void setUp(String url, String title, int screen, Class mediaInterfaceClass) {
         setUp(new JZDataSource(url, title), screen, mediaInterfaceClass);
     }
+
 
     public void setUp(JZDataSource jzDataSource, int screen, Class mediaInterfaceClass) {
         if ((System.currentTimeMillis() - gobakFullscreenTime) < 200) return;
@@ -204,11 +212,16 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             Log.i(TAG, "onClick fullscreen [" + this.hashCode() + "] ");
             if (state == STATE_AUTO_COMPLETE) return;
             if (screen == SCREEN_FULLSCREEN) {
+                isSilencePattern = true;
+                mediaInterface.setSilence(isSilencePattern);
+
                 //quit fullscreen
                 backPress();
             } else {
                 Log.d(TAG, "toFullscreenActivity [" + this.hashCode() + "] ");
                 gotoScreenFullscreen();
+                isSilencePattern = false;
+                mediaInterface.setSilence(false);
             }
         }
     }
@@ -394,6 +407,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         }
         state = STATE_PLAYING;
         startProgressTimer();
+        mediaInterface.setSilence(isSilencePattern);
     }
 
     public void onStatePause() {
@@ -462,9 +476,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         dismissVolumeDialog();
         onStateNormal();
         textureViewContainer.removeAllViews();
-
-        AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.abandonAudioFocus(onAudioFocusChangeListener);
+        setAudioFocus(false);
         JZUtils.scanForActivity(getContext()).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (mediaInterface != null) mediaInterface.release();
     }
@@ -530,11 +542,13 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         }
         addTextureView();
 
-        mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.requestAudioFocus(onAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        setAudioFocus(true);
         JZUtils.scanForActivity(getContext()).getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         onStatePreparing();
+        if (isSilencePattern) {
+            mediaInterface.setSilence(isSilencePattern);
+        }
     }
 
     public void changeUrl(String url, String title, long seekToInAdvance) {
@@ -768,6 +782,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         JZUtils.showStatusBar(getContext());
         JZUtils.setRequestedOrientation(getContext(), NORMAL_ORIENTATION);
         JZUtils.showSystemUI(getContext());
+
+        mediaInterface.setSilence(isSilencePattern);
     }
 
     public void setScreenNormal() {//TODO 这块不对呀，还需要改进，设置flag之后要设置ui，不设置ui这么写没意义呀
@@ -980,6 +996,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public static boolean backPress() {
         Log.i(TAG, "backPress");
         if (CONTAINER_LIST.size() != 0 && CURRENT_JZVD != null) {//判断条件，因为当前所有goBack都是回到普通窗口
+            CURRENT_JZVD.isSilencePattern = true;
             CURRENT_JZVD.gotoScreenNormal();
             return true;
         } else if (CONTAINER_LIST.size() == 0 && CURRENT_JZVD != null && CURRENT_JZVD.screen != SCREEN_NORMAL) {//退出直接进入的全屏
@@ -1008,6 +1025,19 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         Jzvd.VIDEO_IMAGE_DISPLAY_TYPE = type;
         if (CURRENT_JZVD != null && CURRENT_JZVD.textureView != null) {
             CURRENT_JZVD.textureView.requestLayout();
+        }
+    }
+
+
+    public void setAudioFocus(boolean focus) {
+        mAudioManager = (AudioManager)
+                getContext().getSystemService(Context.AUDIO_SERVICE);
+        if (focus) {//请求音频焦点
+            mAudioManager.requestAudioFocus(onAudioFocusChangeListener,
+                    AudioManager.STREAM_MUSIC,
+                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        } else {//释放
+            mAudioManager.abandonAudioFocus(onAudioFocusChangeListener);
         }
     }
 

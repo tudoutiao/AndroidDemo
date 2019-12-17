@@ -13,6 +13,7 @@ public class VideoInfo implements Serializable {
     private String videoUrl;
     private int videoHeight;
     private int videoWidth;
+    private String title;
 
     public int getId() {
         return id;
@@ -84,5 +85,13 @@ public class VideoInfo implements Serializable {
 
     public void setVideoWidth(int videoWidth) {
         this.videoWidth = videoWidth;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

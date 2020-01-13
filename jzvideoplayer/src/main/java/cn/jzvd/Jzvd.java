@@ -30,6 +30,8 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 /**
  * Created by Nathen on 16/7/30.
  */
@@ -60,7 +62,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     public static boolean TOOL_BAR_EXIST = true;
     public static int FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
     public static int NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-    public static boolean SAVE_PROGRESS = false;
+    public static boolean SAVE_PROGRESS = true;//是否保存播放进度
+    public static boolean OPEN_LIST_SILENT = true;//是否列表播放静音
     public static boolean WIFI_TIP_DIALOG_SHOWED = false;
     public static int VIDEO_IMAGE_DISPLAY_TYPE = 0;
     public static long lastAutoFullscreenTime = 0;
@@ -109,6 +112,9 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     protected float mGestureDownBrightness;
     protected long mSeekTimePosition;
 
+    SensorManager mSensorManager;
+    Sensor accelerometerSensor;
+
     public Jzvd(Context context) {
         super(context);
         init(context);
@@ -142,6 +148,9 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
 
         mScreenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
         mScreenHeight = getContext().getResources().getDisplayMetrics().heightPixels;
+
+        mSensorManager = (SensorManager) getContext().getSystemService(SENSOR_SERVICE);
+        accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         state = STATE_IDLE;
     }
@@ -754,6 +763,9 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     }
 
     public void gotoScreenFullscreen() {
+        //全屏监听屏幕方向
+        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
         ViewGroup vg = (ViewGroup) getParent();
         vg.removeView(this);
         cloneAJzvd(vg);
@@ -764,12 +776,16 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
 
         setScreenFullscreen();
         JZUtils.hideStatusBar(getContext());
-        JZUtils.setRequestedOrientation(getContext(), FULLSCREEN_ORIENTATION);
+//        JZUtils.setRequestedOrientation(getContext(), FULLSCREEN_ORIENTATION);
         JZUtils.hideSystemUI(getContext());//华为手机和有虚拟键的手机全屏时可隐藏虚拟键 issue:1326
 
     }
 
     public void gotoScreenNormal() {//goback本质上是goto
+        //取消注册屏幕方向监听
+        orientationType = 0;
+        mSensorManager.unregisterListener(mSensorEventListener);
+
         gobakFullscreenTime = System.currentTimeMillis();//退出全屏
         ViewGroup vg = (ViewGroup) (JZUtils.scanForActivity(getContext())).getWindow().getDecorView();
         vg.removeView(this);
@@ -867,17 +883,26 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         return context;
     }
 
-    public static class JZAutoFullscreenListener implements SensorEventListener {
+    //全屏播放时，屏幕方向  1:横向  -1：纵向
+    int orientationType = 0;
+    SensorEventListener mSensorEventListener = new SensorEventListener() {
+
         @Override
         public void onSensorChanged(SensorEvent event) {//可以得到传感器实时测量出来的变化值
             final float x = event.values[SensorManager.DATA_X];
             float y = event.values[SensorManager.DATA_Y];
             float z = event.values[SensorManager.DATA_Z];
-            //过滤掉用力过猛会有一个反向的大数值
-            if (x < -12 || x > 12) {
-                if ((System.currentTimeMillis() - lastAutoFullscreenTime) > 2000) {
-                    if (Jzvd.CURRENT_JZVD != null) Jzvd.CURRENT_JZVD.autoFullscreen(x);
-                    lastAutoFullscreenTime = System.currentTimeMillis();
+            if (Jzvd.CURRENT_JZVD == null)
+                return;
+            if (x < -8 || x > 8) {
+                if (orientationType != 1) {
+                    JZUtils.setRequestedOrientation(Jzvd.CURRENT_JZVD.getContext(), FULLSCREEN_ORIENTATION);
+                    orientationType = 1;
+                }
+            } else if (-5 < x && x < 5) {
+                if (orientationType != -1) {
+                    JZUtils.setRequestedOrientation(Jzvd.CURRENT_JZVD.getContext(), NORMAL_ORIENTATION);
+                    orientationType = -1;
                 }
             }
         }
@@ -885,7 +910,28 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
-    }
+    };
+
+
+//    public static class JZAutoFullscreenListener implements SensorEventListener {
+//        @Override
+//        public void onSensorChanged(SensorEvent event) {//可以得到传感器实时测量出来的变化值
+//            final float x = event.values[SensorManager.DATA_X];
+//            float y = event.values[SensorManager.DATA_Y];
+//            float z = event.values[SensorManager.DATA_Z];
+//            //过滤掉用力过猛会有一个反向的大数值
+//            if (x < -12 || x > 12) {
+//                if ((System.currentTimeMillis() - lastAutoFullscreenTime) > 2000) {
+//                    if (Jzvd.CURRENT_JZVD != null) Jzvd.CURRENT_JZVD.autoFullscreen(x);
+//                    lastAutoFullscreenTime = System.currentTimeMillis();
+//                }
+//            }
+//        }
+//
+//        @Override
+//        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//        }
+//    }
 
     public class ProgressTimerTask extends TimerTask {
         @Override

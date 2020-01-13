@@ -202,6 +202,10 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     public void setSilence(boolean isSilence) {
         if (null == mediaPlayer)
             return;
+
+        if (!Jzvd.OPEN_LIST_SILENT)
+            return;
+
         if (isSilence) {
             mediaPlayer.setVolume(0f, 0f);
         } else {

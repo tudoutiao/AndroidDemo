@@ -6,4 +6,12 @@
     <color name="tab_default_color">#888888</color>
     <color name="tab_check_color">#feac2c</color>
     <color name="line">#e3e3e3</color>
+
+    <color name="img_list_item_bg1">#10dddddd</color>
+    <color name="img_list_item_bg2">#11dddddd</color>
+    <color name="img_list_item_bg3">#12dddddd</color>
+    <color name="img_list_item_bg4">#13dddddd</color>
+    <color name="img_list_item_bg5">#14dddddd</color>
+
+    <color name="ffffff">#ffffff</color>
 </resources>

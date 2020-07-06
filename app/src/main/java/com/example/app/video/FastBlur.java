@@ -1,4 +1,4 @@
-package com.example.myapplication.video;
+package com.example.app.video;
 
 import android.graphics.Bitmap;
 

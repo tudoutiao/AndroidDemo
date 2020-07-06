@@ -1,12 +1,11 @@
-package com.caidanmao_group.view.adapter;
+package com.android.test.base;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.caidanmao.view.base.BaseFragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class ListFragmentAdapter extends FragmentPagerAdapter {
 
     private List<BaseFragment> mFragmentList;
     private List<String> mTabNameList;
-    private BaseFragment mCurFragment;
+    private Fragment mCurFragment;
 
     public ListFragmentAdapter(FragmentManager fm, ArrayList<BaseFragment> linkFragmentLists, ArrayList<String> mTabNameList) {
         super(fm);
@@ -43,10 +42,10 @@ public class ListFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
-        mCurFragment = (BaseFragment) object;
+        mCurFragment = (Fragment) object;
     }
 
-    public BaseFragment getCurFragment() {
+    public Fragment getCurFragment() {
         return mCurFragment;
     }
 

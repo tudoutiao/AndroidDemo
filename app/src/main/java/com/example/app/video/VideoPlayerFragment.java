@@ -1,4 +1,4 @@
-package com.example.myapplication.video;
+package com.example.app.video;
 
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
@@ -27,7 +27,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.example.myapplication.R;
+import com.example.app.R;
 
 import cn.jzvd.JZUtils;
 

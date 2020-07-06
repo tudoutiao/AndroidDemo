@@ -52,6 +52,7 @@
         <item name="layout_constraintHeight_default">percent</item>
         <item name="layout_constraintHeight_percent">0.1</item>
         <item name="layout_constraintWidth_default">percent</item>
+        <item name="android:textColor">@color/white</item>
         <item name="layout_constraintWidth_percent">0.8</item>
         <item name="android:background">@drawable/common_btn_bg_blue</item>
         <item name="android:textSize">@dimen/txt_big_size</item>

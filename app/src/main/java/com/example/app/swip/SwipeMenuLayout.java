@@ -1,4 +1,4 @@
-package com.example.app.view.swip;
+package com.example.app.swip;
 
 
 import android.animation.Animator;
@@ -18,23 +18,8 @@ import android.view.animation.OvershootInterpolator;
 
 import com.example.app.R;
 
-/*
- *@创建者       L_jp
- *@创建时间     2019/6/8 11:15.
- *@描述
- *
- * 使用方式:
- * 当前这个SwipeMenuLayout为parentView，
- * childView中第一个view为itemView，后面相继的view为menuView；
- * itemView的宽度不管是AT_MOST还是EXACTLY，都会指定为SwipeMenuLayout的宽度；
- * 如果SwipeMenuLayout的宽度为AT_MOST，会以它父view的宽度来测量
- *
- * 禁止侧滑功能 isEnableSwipe设置false
- * 默认左滑打开菜单，想要右滑打开菜单的话 isEnableLeftMenu设置true
- *
- *@更新者         $Author$
- *@更新时间         $Date$
- *@更新描述
+/**
+ * 在onTouch中响应侧滑
  */
 public class SwipeMenuLayout extends ViewGroup {
     private static final String TAG = "SwipeMenuLayout";
@@ -61,10 +46,10 @@ public class SwipeMenuLayout extends ViewGroup {
     private boolean chokeIntercept = false;
     /**
      * 是否开启阻塞效果 默认开启
-     *  举个例子 比如你把item1的侧滑菜单划出来了，你继续滑动item2的，
-     *  这是默认是开启阻塞效果的，在你滑动item2的时候 会先关闭item1的菜单，
-     *  需要再次滑动item2才可以（qq是这样子的）
-     *  如果关闭这个效果，你在滑动item2的同时会同时关闭item1
+     * 举个例子 比如你把item1的侧滑菜单划出来了，你继续滑动item2的，
+     * 这是默认是开启阻塞效果的，在你滑动item2的时候 会先关闭item1的菜单，
+     * 需要再次滑动item2才可以（qq是这样子的）
+     * 如果关闭这个效果，你在滑动item2的同时会同时关闭item1
      */
     private boolean isOpenChoke = true;
     //是否启用侧滑 默认启用 默认左滑动 而且放置右侧
@@ -85,6 +70,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     public SwipeMenuLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        Log.e("swip", "---init---");
         this.mContext = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SwipeMenuLayout, defStyleAttr, 0);
         isEnableSwipe = ta.getBoolean(R.styleable.SwipeMenuLayout_isEnableSwipe, true);
@@ -137,6 +123,7 @@ public class SwipeMenuLayout extends ViewGroup {
                 contentWidth = childAt.getMeasuredWidth();
             } else {
                 mMenuWidth += childAt.getMeasuredWidth();
+                layoutParams.height=contentMaxHeight;
             }
         }
         //取最大值 重新测量
@@ -146,6 +133,8 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        Log.e("swip", "---onLayout---" + changed + "--" + l + "--" + t + "--" + r + "--" + b);
+
         int childCount = getChildCount();
         int pLeft = getPaddingLeft();
         int pTop = getPaddingTop();
@@ -241,6 +230,23 @@ public class SwipeMenuLayout extends ViewGroup {
                     return true;
                 }
                 break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL: {
+                if (getScrollX() != 0) {
+                    //没有开启的话 才走判断逻辑
+                    if ((isEnableLeftMenu && ev.getX() <= mMenuWidth)
+                            || (!isEnableLeftMenu && ev.getX() > getMeasuredWidth() - mMenuWidth)) {
+                        if (isClickMenuAndClose) {
+                            closeMenuAnim();
+                        }
+                        break;
+                    }
+                    //否则点击了 直接动画关闭
+                    closeMenuAnim();
+                    return true;
+                }
+                break;
+            }
         }
         return super.onInterceptTouchEvent(ev);
     }
@@ -323,20 +329,6 @@ public class SwipeMenuLayout extends ViewGroup {
                         }
                     }
                     return true;
-                }else {
-                    if (getScrollX() != 0) {
-                        //没有开启的话 才走判断逻辑
-                        if ((isEnableLeftMenu && ev.getX() <= mMenuWidth)
-                                || (!isEnableLeftMenu && ev.getX() > getMeasuredWidth() - mMenuWidth)) {
-                            if (isClickMenuAndClose) {
-                                closeMenuAnim();
-                            }
-                            break;
-                        }
-                        //否则点击了 直接动画关闭
-                        closeMenuAnim();
-                        return true;
-                    }
                 }
                 break;
         }
@@ -536,4 +528,5 @@ public class SwipeMenuLayout extends ViewGroup {
         this.mSwipeMenuStateListener = listener;
         return this;
     }
+
 }

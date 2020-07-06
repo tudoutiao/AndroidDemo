@@ -1,11 +1,9 @@
-package com.example.myapplication.video;
+package com.example.app.video;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.view.View;
-
-import com.example.myapplication.video.FastBlur;
 
 public class MyAsyncTask extends AsyncTask<Bitmap, Void, Bitmap> {
     private View view;

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-            android:id="@+id/infoFragment"
+            android:id="@+id/marketFragment"
             android:icon="@drawable/main_ic_market"
             android:title="主页" />
 
-    <item
-            android:id="@+id/marketFragment"
-            android:icon="@drawable/main_ic_favorite"
-            android:title="喜欢" />
+    <!--
+        <item
+                android:id="@+id/marketFragment"
+                android:icon="@drawable/main_ic_favorite"
+                android:title="喜欢" />
+    -->
 
     <item
-            android:id="@+id/meFragment"
+            android:id="@+id/detailFragment"
             android:icon="@drawable/main_ic_me"
             android:title="我" />
 

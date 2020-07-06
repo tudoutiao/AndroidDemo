@@ -1,4 +1,4 @@
-package com.example.myapplication.view;
+package com.example.app.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.myapplication.R;
+import com.example.app.R;
 
 public class TabItem extends FrameLayout {
     private Context mContext;

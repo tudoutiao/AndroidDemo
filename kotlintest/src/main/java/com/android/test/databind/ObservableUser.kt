@@ -7,8 +7,11 @@ import androidx.databinding.ObservableField
  * description:
  */
 
-class User {
+class ObservableUser {
     var name: ObservableField<String> = ObservableField()
     var pwd: ObservableField<String> = ObservableField()
 
+    override fun toString(): String {
+        return name.toString() + "--" + pwd.toString()
+    }
 }

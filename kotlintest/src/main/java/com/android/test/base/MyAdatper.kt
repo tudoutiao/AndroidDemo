@@ -1,4 +1,4 @@
-package com.android.test.view
+package com.android.test.base
 
 import android.content.Context
 import android.view.LayoutInflater

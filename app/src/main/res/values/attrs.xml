@@ -6,4 +6,11 @@
         <attr name="defaultDrawable" format="reference|color"/>
         <attr name="isCheck" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="imageBoxView">
+        <attr name="maxSize" format="integer" />
+        <attr name="normalSize" format="integer" />
+        <attr name="showDelete" format="boolean" />
+    </declare-styleable>
+
 </resources>

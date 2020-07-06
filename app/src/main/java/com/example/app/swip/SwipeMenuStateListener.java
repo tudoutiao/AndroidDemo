@@ -1,4 +1,4 @@
-package com.example.app.view.swip;
+package com.example.app.swip;
 
 
 /*

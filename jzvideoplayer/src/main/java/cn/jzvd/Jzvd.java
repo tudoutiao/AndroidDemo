@@ -485,6 +485,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         dismissVolumeDialog();
         onStateNormal();
         textureViewContainer.removeAllViews();
+
         setAudioFocus(false);
         JZUtils.scanForActivity(getContext()).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (mediaInterface != null) mediaInterface.release();

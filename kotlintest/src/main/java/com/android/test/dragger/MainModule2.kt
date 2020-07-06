@@ -1,41 +1,38 @@
 package com.android.test.dragger
 
+import androidx.databinding.ObservableField
 import com.android.test.bean.City
 import com.android.test.bean.User
-import dagger.Component
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
+import javax.inject.Singleton
 
 
 /**
  * Create by liuxue on 2020/4/29 0029.
  * description:
  */
-//第一步 添加@Module 注解
+//实例化两个对象
 @Module
-class MainModule {
-    //第二步 使用Provider 注解 实例化对象
+class MainModule2 {
+    @Named("a")
     @Provides
-    fun providerUser(): User {
-        return User()
+    fun providerUserDev(): User {
+        return User("lilei", "11")
     }
 
+    @Named("b")
     @Provides
-    fun providerUser(name: String): User {
-        return User(name, "55")
+    fun providerUserRelease(): User {
+        return User("hanmeimei", "22")
     }
 
+    @ActivityScoped
     @Provides
     fun providerCity(): City {
-        return City("河北")
+        return City()
     }
+
 }
 
-
-
-
-@Component(modules = [MainModule::class])
-interface MainComponent {
-    //第三步  写一个方法 绑定Activity /Fragment
-    fun inject(activity: DaggerActivity?)
-}

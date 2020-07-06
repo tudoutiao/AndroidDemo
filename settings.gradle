@@ -1,1 +1,2 @@
-include ':app', ':jzvideoplayer'
+include ':app', ':jzvideoplayer', ':kotlintest'
+include ':jetpackdemo'

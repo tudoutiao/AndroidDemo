@@ -1,4 +1,4 @@
-package com.example.myapplication.video;
+package com.example.app.video;
 
 
 import android.content.res.AssetManager;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.R;
+import com.example.app.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

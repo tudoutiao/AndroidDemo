@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/login_navigation">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/login_navigation"
+        app:startDestination="@id/welcomeFragment">
 
+
+    <fragment
+            android:id="@+id/welcomeFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.WelcomeFragment"
+            android:label="WelcomeFragment"
+            tools:layout="@layout/fragment_welcome">
+        <action
+                android:id="@+id/action_welcome_to_login"
+                app:destination="@id/loginFragment" />
+        <action
+                android:id="@+id/action_welcome_to_register"
+                app:destination="@id/registerFragment"
+                app:enterAnim="@anim/common_slide_in_right"
+                app:exitAnim="@anim/common_slide_out_left"
+                app:popEnterAnim="@anim/common_slide_in_left"
+                app:popExitAnim="@anim/common_slide_out_right"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.LoginFragment"
+            android:label="LoginFragment"
+            tools:layout="@layout/fragment_login" />
+    <fragment
+            android:id="@+id/registerFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.RegisterFragment"
+            android:label="RegisterFragment"
+            tools:layout="@layout/fragment_register">
+        <argument
+                android:name="EMAIL"
+                android:defaultValue="2005@qq.com"
+                app:argType="string" />
+    </fragment>
 </navigation>

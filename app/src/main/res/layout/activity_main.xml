@@ -23,7 +23,7 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
-        <com.example.myapplication.view.TabItem
+        <com.example.app.view.TabItem
                 android:id="@+id/tab1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 app:defaultDrawable="@mipmap/tab_home"
                 app:title="a" />
 
-        <com.example.myapplication.view.TabItem
+        <com.example.app.view.TabItem
                 android:id="@+id/tab2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 app:defaultDrawable="@mipmap/tab_section"
                  />
 
-        <com.example.myapplication.view.TabItem
+        <com.example.app.view.TabItem
                 android:id="@+id/tab3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 app:defaultDrawable="@mipmap/tab_news"
                  />
 
-        <com.example.myapplication.view.TabItem
+        <com.example.app.view.TabItem
                 android:id="@+id/tab4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

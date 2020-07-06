@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_navigation"
+        app:startDestination="@id/infoFragment">
 
+    <fragment
+            android:id="@+id/infoFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.InfoFragment"
+            android:label="fragment_info"
+            tools:layout="@layout/fragment_info" />
+    <fragment
+            android:id="@+id/marketFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.MarketFragment"
+            android:label="fragment_market"
+            tools:layout="@layout/fragment_market" />
+    <fragment
+            android:id="@+id/meFragment"
+            android:name="com.gozap.jetpack.ui.ui.fragment.MeFragment"
+            android:label="fragment_me"
+            tools:layout="@layout/fragment_me" />
 </navigation>

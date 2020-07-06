@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.app;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.myapplication.video.MainFragment;
-import com.example.myapplication.video.VideoPlayerFragment;
-import com.example.myapplication.view.TabItem;
+import com.example.app.video.MainFragment;
+import com.example.app.video.VideoPlayerFragment;
+import com.example.app.view.TabItem;
 
 import java.util.ArrayList;
 import java.util.List;

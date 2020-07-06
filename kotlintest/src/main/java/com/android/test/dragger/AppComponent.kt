@@ -1,14 +1,14 @@
 package com.android.test.dragger
 
 import dagger.Component
+import javax.inject.Singleton
 
 /**
  * Create by liuxue on 2020/4/29 0029.
  * description:
  */
-
-@Component(modules = [MainModule::class, MainModule2::class])
-interface MainComponent {
-    //第三步  写一个方法 绑定Activity /Fragment
-    fun inject(activity: DaggerActivity?)
+@Singleton
+@Component(modules = [AppModule::class,MainModule::class])
+interface AppComponent {
+    fun getAppApi(): AppApi
 }

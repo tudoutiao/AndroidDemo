@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+首先给被AppBarLayout包裹的View添加app:layout_scrollFlags属性，并设置相应的值
+
+scroll：让该View可以滚动出屏幕
+enterAlways：不需要滚动到顶部，只要有向上滚动的事件就显示该View
+enterAlwaysCollapsed：定义该View何时进入，如果你定义了一个最小高度minHeight，同时enterAlways也定义了，那么该View将会在到达这个最小高度的时候开始慢慢显示，直到滚动组件滚动到顶部时再完全展开
+exitUntilCollapsed：定义该View何时退出，如果你定义了一个最小高度minHeight，那么这个View将在滚动到达这个最小高度时消失
+如果不设置layout_scrollFlags属性，那么该View就会固定在屏幕上
+enterAlwaysCollapsed和exitUntilCollapsed属性主要是在搭配CollapsingToolbarLayout时使用的
+
+注意：布局的时候，AppBarLayout里面滚动的View要放在固定的View上面
+然后在CoordinatorLayout布局里放一个可以滚动的View（不支持ListView），这里使用ViewPager里放置一个RecylerView，为该ViewPager设置app:layout_behavior属性，这里可直接使用Android自带的值
+app:layout_behavior=”@string/appbar_scrolling_view_behavior”
+设置该值的作用相当于告诉CoordinatorLayout，此View是一个滚动控件，如果该View滚动了，那么设置了layout_scrollFlags属性的控件就可以响应滚动事件了
+
+想实现效果一，总结
+
+使用CoordinatorLayout作为根布局
+使用AppBarLayout包裹头部View，并给需要滚动的View设置app:layout_scrollFlags属性
+给滑动组件设置app:layout_behavior属性
+-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ScrollActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            app:navigationIcon="@android:drawable/ic_dialog_email"
+            app:title="Title" />
+
+        <!--Tab导航栏-->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabMode="fixed" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,6 +18,9 @@ import android.view.animation.OvershootInterpolator;
 
 import com.example.app.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 在onTouch中响应侧滑
  */
@@ -70,7 +73,6 @@ public class SwipeMenuLayout extends ViewGroup {
 
     public SwipeMenuLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Log.e("swip", "---init---");
         this.mContext = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SwipeMenuLayout, defStyleAttr, 0);
         isEnableSwipe = ta.getBoolean(R.styleable.SwipeMenuLayout_isEnableSwipe, true);
@@ -94,6 +96,7 @@ public class SwipeMenuLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
         //获取测量模式
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         //内容view的宽度
@@ -123,18 +126,21 @@ public class SwipeMenuLayout extends ViewGroup {
                 contentWidth = childAt.getMeasuredWidth();
             } else {
                 mMenuWidth += childAt.getMeasuredWidth();
-                layoutParams.height=contentMaxHeight;
+                layoutParams.height = contentMaxHeight;
             }
         }
+
         //取最大值 重新测量
         int height = Math.max(getMeasuredHeight(), contentMaxHeight);
         setMeasuredDimension(contentWidth, height);
+        getAllChildViews(mContentView);
     }
+
+    private ImageListView imageListView;
+
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.e("swip", "---onLayout---" + changed + "--" + l + "--" + t + "--" + r + "--" + b);
-
         int childCount = getChildCount();
         int pLeft = getPaddingLeft();
         int pTop = getPaddingTop();
@@ -166,8 +172,13 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (!this.isEnableSwipe) {
+            return super.dispatchTouchEvent(ev);
+        }
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                Log.e("---swip", "dispatchTouchEvent :down");
+
                 mFirstRawX = ev.getRawX();
                 getParent().requestDisallowInterceptTouchEvent(false);
                 //关闭上一个打开的SwipeMenuLayout
@@ -208,6 +219,8 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.e("---swip", "onInterceptTouchEvent :" + ev.getAction());
+
         if (!this.isEnableSwipe) {
             return super.onInterceptTouchEvent(ev);
         }
@@ -227,6 +240,9 @@ public class SwipeMenuLayout extends ViewGroup {
                 //大于系统给出的这个数值，就认为是滑动了 事件进行拦截,在onTouch中进行逻辑操作
                 if (Math.abs(ev.getRawX() - mFirstRawX) >= mScaledTouchSlop) {
                     longClickable(false);
+                    if (getScrollX() == 0 && (ev.getRawX() - mFirstRawX) > 0) {
+                        return false;
+                    }
                     return true;
                 }
                 break;
@@ -253,6 +269,8 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        Log.e("---swip", "onTouchEvent :" + ev.getAction());
+
         //如果关闭了侧滑 直接super
         if (!this.isEnableSwipe) {
             return super.onTouchEvent(ev);
@@ -282,8 +300,10 @@ public class SwipeMenuLayout extends ViewGroup {
                 } else {
                     if (getScrollX() < 0) {
                         scrollTo(0, 0);
+                        changeImageListEnable(false);
                     } else if (getScrollX() > mMenuWidth) {
                         scrollTo(mMenuWidth, 0);
+                        changeImageListEnable(true);
                     }
                 }
                 //重新赋值
@@ -355,6 +375,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
 
     public void expandMenuAnim() {
+        changeImageListEnable(true);
         longClickable(false);
         //清除动画
         cleanAnim();
@@ -385,6 +406,7 @@ public class SwipeMenuLayout extends ViewGroup {
      * 平滑关闭
      */
     public void closeMenuAnim() {
+        changeImageListEnable(false);
         mCacheView = null;
         //清除动画
         cleanAnim();
@@ -464,6 +486,7 @@ public class SwipeMenuLayout extends ViewGroup {
     //展开时，禁止自身的长按
     @Override
     public boolean performLongClick() {
+
         if (getScrollX() != 0) {
             return true;
         }
@@ -528,5 +551,27 @@ public class SwipeMenuLayout extends ViewGroup {
         this.mSwipeMenuStateListener = listener;
         return this;
     }
+
+    private List<View> getAllChildViews(View view) {
+        List<View> allchildren = new ArrayList<>();
+        if (view instanceof ViewGroup) {
+            ViewGroup vp = (ViewGroup) view;
+            for (int i = 0; i < vp.getChildCount(); i++) {
+                View viewchild = vp.getChildAt(i);
+                if (viewchild instanceof ImageListView) {
+                    imageListView = (ImageListView) viewchild;
+                }
+                allchildren.add(viewchild);
+            }
+        }
+        return allchildren;
+    }
+
+    private void changeImageListEnable(boolean isShowMenu) {
+        if (null != imageListView) {
+            imageListView.setShowMenu(isShowMenu);
+        }
+    }
+
 
 }

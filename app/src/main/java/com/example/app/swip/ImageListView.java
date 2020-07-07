@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -39,7 +40,6 @@ public class ImageListView extends HorizontalScrollView {
 
     private float downX;    //按下时 的X坐标
     private float downY;    //按下时 的Y坐标
-    private boolean isUserSwiped;
     //上一次的xy
     private PointF mLastP = new PointF();
     //2016 11 03 add,判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
@@ -50,53 +50,114 @@ public class ImageListView extends HorizontalScrollView {
     private final int moveDistanceY = 30;
     private int swipMoveDistanceX;
 
+    private boolean isShowMenu = false;
+
+    public void setShowMenu(boolean showMenu) {
+        isShowMenu = showMenu;
+    }
+
+
+    float mFirstRawX;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                isUserSwiped = false;
+                Log.e("---swip", "imageList___dispatchTouchEvent down");
+                mFirstRawX = event.getRawX();
 //                //将按下时的坐标存储
-                downX = x;
-                downY = y;
+                downX = event.getX();
+                downY = event.getY();
                 mLastP.set(event.getRawX(), event.getRawY());
                 mFirstP.set(event.getRawX(), event.getRawY());
+                mLastRawX = event.getRawX();
                 break;
             case MotionEvent.ACTION_MOVE:
-                float gap = mLastP.x - event.getRawX();
+                Log.e("---swip", "imageList___dispatchTouchEvent move : " + getScrollX() + "--" + event.getRawX() + "--" + mFirstRawX + "--" + swipMoveDistanceX);
+
+//                float gap = mLastP.x - event.getRawX();
                 //为了在水平滑动中禁止父类ListView等再竖直滑动
 //                if (Math.abs(gap) > moveDistanceX || Math.abs(getScrollX()) > moveDistanceX) {
 //                    getParent().requestDisallowInterceptTouchEvent(true);
 //                }
 
-                float gapY = mLastP.y - event.getRawY();
+//                float gapY = mLastP.y - event.getRawY();
 //                if (Math.abs(gapY) > moveDistanceY || Math.abs(getScrollY()) > moveDistanceY) {
 //                    getParent().requestDisallowInterceptTouchEvent(false);
 //                }
 
                 mLastP.set(event.getRawX(), event.getRawY());
 
-                if (imageViews.size() > 3) {
-                    if (Math.abs(getScrollX()) >= swipMoveDistanceX && ((event.getX() - downX) <= 0)) {
+                float gap = mFirstRawX - event.getRawX();
+                if (Math.abs(getScrollX()) < swipMoveDistanceX) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                } else {
+                    if (isShowMenu) {
                         getParent().requestDisallowInterceptTouchEvent(false);
                     } else {
-                        getParent().requestDisallowInterceptTouchEvent(true);
+                        if (gap > 0) {//右滑
+                            getParent().requestDisallowInterceptTouchEvent(false);
+                        } else if (gap < 0) {//左滑
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                        }
                     }
-                } else {
-                    getParent().requestDisallowInterceptTouchEvent(false);
                 }
+                mFirstRawX = event.getRawX();
+
+
+//                    if (Math.abs(getScrollX()) >= swipMoveDistanceX && ((event.getX() - downX) <= 0)) {
+//                        if (isShowMenu) {
+//                            getParent().requestDisallowInterceptTouchEvent(true);
+//                        } else {
+//                            getParent().requestDisallowInterceptTouchEvent(false);
+//                        }
+//                    } else {
+//                        if (isShowMenu) {
+//                            getParent().requestDisallowInterceptTouchEvent(false);
+//                        } else {
+//                            getParent().requestDisallowInterceptTouchEvent(true);
+//                        }
+//                    }
+//                } else {
+//                    getParent().requestDisallowInterceptTouchEvent(false);
+//                }
+
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
-                if (Math.abs(event.getRawX() - mFirstP.x) > mScaleTouchSlop) {
-                    isUserSwiped = true;
-                }
                 getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    float mLastRawX;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (imageViews.size() <= 3) {
+            return super.onTouchEvent(ev);
+        }
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+                mLastRawX = ev.getRawX();
+                break;
+            }
+            case MotionEvent.ACTION_MOVE: {
+//                if (!isShowMenu && (mLastRawX - ev.getRawX()) < 0) {
+//                    getParent().requestDisallowInterceptTouchEvent(true);
+//                }
+                mLastRawX = ev.getRawX();
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL: {
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+            }
+        }
+        return super.onTouchEvent(ev);
     }
 
     public ImageListView(Context context, AttributeSet attrs) {

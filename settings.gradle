@@ -1,2 +1,3 @@
 include ':app', ':jzvideoplayer', ':kotlintest'
 include ':jetpackdemo'
+include ':mine'

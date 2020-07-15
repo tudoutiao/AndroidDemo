@@ -70,21 +70,9 @@ public class ImageListView extends HorizontalScrollView {
                 downY = event.getY();
                 mLastP.set(event.getRawX(), event.getRawY());
                 mFirstP.set(event.getRawX(), event.getRawY());
-                mLastRawX = event.getRawX();
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("---swip", "imageList___dispatchTouchEvent move : " + getScrollX() + "--" + event.getRawX() + "--" + mFirstRawX + "--" + swipMoveDistanceX);
-
-//                float gap = mLastP.x - event.getRawX();
-                //为了在水平滑动中禁止父类ListView等再竖直滑动
-//                if (Math.abs(gap) > moveDistanceX || Math.abs(getScrollX()) > moveDistanceX) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                }
-
-//                float gapY = mLastP.y - event.getRawY();
-//                if (Math.abs(gapY) > moveDistanceY || Math.abs(getScrollY()) > moveDistanceY) {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                }
 
                 mLastP.set(event.getRawX(), event.getRawY());
 
@@ -104,24 +92,6 @@ public class ImageListView extends HorizontalScrollView {
                 }
                 mFirstRawX = event.getRawX();
 
-
-//                    if (Math.abs(getScrollX()) >= swipMoveDistanceX && ((event.getX() - downX) <= 0)) {
-//                        if (isShowMenu) {
-//                            getParent().requestDisallowInterceptTouchEvent(true);
-//                        } else {
-//                            getParent().requestDisallowInterceptTouchEvent(false);
-//                        }
-//                    } else {
-//                        if (isShowMenu) {
-//                            getParent().requestDisallowInterceptTouchEvent(false);
-//                        } else {
-//                            getParent().requestDisallowInterceptTouchEvent(true);
-//                        }
-//                    }
-//                } else {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                }
-
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
@@ -130,34 +100,6 @@ public class ImageListView extends HorizontalScrollView {
             }
         }
         return super.dispatchTouchEvent(event);
-    }
-
-    float mLastRawX;
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (imageViews.size() <= 3) {
-            return super.onTouchEvent(ev);
-        }
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                mLastRawX = ev.getRawX();
-                break;
-            }
-            case MotionEvent.ACTION_MOVE: {
-//                if (!isShowMenu && (mLastRawX - ev.getRawX()) < 0) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                }
-                mLastRawX = ev.getRawX();
-                break;
-            }
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL: {
-                getParent().requestDisallowInterceptTouchEvent(false);
-                break;
-            }
-        }
-        return super.onTouchEvent(ev);
     }
 
     public ImageListView(Context context, AttributeSet attrs) {

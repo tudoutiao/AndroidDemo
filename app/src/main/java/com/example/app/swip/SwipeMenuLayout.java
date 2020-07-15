@@ -269,7 +269,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.e("---swip", "onTouchEvent :" + ev.getAction());
+//        Log.e("---swip", "onTouchEvent :" + ev.getAction());
 
         //如果关闭了侧滑 直接super
         if (!this.isEnableSwipe) {
@@ -284,6 +284,9 @@ public class SwipeMenuLayout extends ViewGroup {
                 }
                 //计算移动的距离
                 float gap = mLastRawX - ev.getRawX();
+
+
+                Log.e("---swip","gap:"+gap);
                 //view滑动
                 scrollBy((int) (gap), 0);
                 if (Math.abs(gap) > mScaledTouchSlop || Math.abs(getScrollX()) > mScaledTouchSlop) {

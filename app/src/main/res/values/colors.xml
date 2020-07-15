@@ -12,6 +12,10 @@
     <color name="img_list_item_bg3">#12dddddd</color>
     <color name="img_list_item_bg4">#13dddddd</color>
     <color name="img_list_item_bg5">#14dddddd</color>
+    <color name="f8f2dc">#F8F2DC</color>
+    <color name="feac2c">#feac2c</color>
+    <color name="afafaf">#afafaf</color>
+
 
     <color name="ffffff">#ffffff</color>
 </resources>

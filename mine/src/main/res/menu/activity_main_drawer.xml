@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_xin"
+            android:title="精彩肉肉" />
+        <item
+            android:id="@+id/nav_fiction"
+            android:icon="@drawable/ic_menu_welfare"
+            android:title="天天小说" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_js"
+            android:title="NBA直播" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="iOS" />
+        <item
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="head" />
+    </group>
+
+    <item android:title="@string/set">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_resources"
+                android:title="@string/set_about" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@drawable/ic_menu_audio"
+                android:title="@string/set_feed_back" />
+            <item
+                android:id="@+id/nav_clear_cache"
+                android:icon="@drawable/ic_menu_recommend"
+                android:title="@string/set_clear_cache" />
+        </menu>
+    </item>
+</menu>

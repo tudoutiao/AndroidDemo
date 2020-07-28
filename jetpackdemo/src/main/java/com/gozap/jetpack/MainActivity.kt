@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.gozap.jetpack.BaseActivity
 import com.gozap.jetpack.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.my_nav_host_fragment)
         navigation_view.setupWithNavController(navController)
-
-
     }
 
 

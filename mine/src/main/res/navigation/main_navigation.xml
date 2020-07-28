@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/gankFragment"
+    tools:ignore="MissingDefaultResource">
+
+    <fragment
+        android:id="@+id/gankFragment"
+        android:name="com.gozap.mine.ui.fragment.GankFragment"
+        android:label="fragment_gank"
+        tools:layout="@layout/fragment_gank" />
+    <fragment
+        android:id="@+id/localFragment"
+        android:name="com.gozap.mine.ui.fragment.LocalFragment"
+        android:label="fragment_local"
+        tools:layout="@layout/fragment_local" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.gozap.mine.ui.fragment.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/picFragment"
+        android:name="com.gozap.mine.ui.fragment.PicFragment"
+        android:label="fragment_pic"
+        tools:layout="@layout/fragment_pic" />
+</navigation>

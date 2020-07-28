@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/gankFragment"
+        android:icon="@drawable/main_ic_market"
+        android:title="干货" />
+
+    <item
+        android:id="@+id/picFragment"
+        android:icon="@drawable/main_ic_favorite"
+        android:title="图片" />
+
+    <item
+        android:id="@+id/localFragment"
+        android:icon="@drawable/main_ic_me"
+        android:title="本地" />
+    <item
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/main_ic_market"
+        android:title="视频" />
+
+</menu>

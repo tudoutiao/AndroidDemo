@@ -51,10 +51,10 @@ class WelcomeFragment : Fragment() {
             // ===========
             val name = AppPrefsUtils.getString(BaseConstant.SP_USER_NAME)
             val bundle = Bundle()
-            bundle.putString(BaseConstant.ARGS_NAME, name)
+            bundle.putString(BaseConstant.ARGS_NAME, "name")
             findNavController().navigate(
                 R.id.action_welcome_to_login,
-                bundle,
+                bundle,//参数传递
                 navOption
             )
 

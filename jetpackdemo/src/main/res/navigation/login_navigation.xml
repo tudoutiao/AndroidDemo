@@ -5,7 +5,6 @@
         android:id="@+id/login_navigation"
         app:startDestination="@id/welcomeFragment">
 
-
     <fragment
             android:id="@+id/welcomeFragment"
             android:name="com.gozap.jetpack.ui.ui.fragment.WelcomeFragment"

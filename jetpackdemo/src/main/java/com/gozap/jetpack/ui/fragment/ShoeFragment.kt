@@ -7,26 +7,39 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.gozap.jetpack.databinding.FragmentShoeBinding
 import com.gozap.jetpack.ui.ui.adapter.ShoeAdapter
 import com.gozap.jetpack.ui.viewmodel.ShoeModel
-import kotlinx.android.synthetic.main.fragment_shoe.*
+import com.gozap.jetpack.viewmodel.CustomViewModelProvider
 
 /**
  * 鞋子页面
  */
 class ShoeFragment : Fragment() {
 
-    val TAG:String by lazy {
+    val TAG: String by lazy {
         ShoeFragment::class.java.simpleName
     }
 
+
     // 动画集合，用来控制动画的有序播放
     private var animatorSet: AnimatorSet? = null
+
     // 圆的半径
     private var radius: Int = 0
+
     // FloatingActionButton宽度和高度，宽高一样
     private var width: Int = 0
+
+     val viewModel: ShoeModel by viewModels {
+        CustomViewModelProvider.providerShoeModel(requireContext())
+    }
+
+//    val viewModel: ShoeModel by lazy {
+//        ViewModelProviders.of(this).get(ShoeModel::class.java) //没有构造参数时
+//    }
 
 
     override fun onCreateView(
@@ -35,22 +48,22 @@ class ShoeFragment : Fragment() {
     ): View? {
         val binding: FragmentShoeBinding = FragmentShoeBinding.inflate(inflater, container, false)
         context ?: return binding.root
+
         val adapter = ShoeAdapter(context!!)
         binding.recycler.adapter = adapter
         onSubscribeUi(adapter, binding)
         return binding.root
-
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_shoe, container, false)
     }
 
     /**
      * 鞋子数据更新的通知
      */
     private fun onSubscribeUi(adapter: ShoeAdapter, binding: FragmentShoeBinding) {
-        binding.lifecycleOwner=this
-
-
+        viewModel.shoes.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                adapter.submitList(it)
+            }
+        })
     }
 
 }

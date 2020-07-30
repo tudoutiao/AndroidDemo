@@ -41,8 +41,9 @@ ext {
             "kotlin"                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
             "appcompat"               : "androidx.appcompat:appcompat:$versions.appcompat",
             "recyclerview"            : "androidx.recyclerview:recyclerview:$versions.appcompat",
+            "viewpager2"              : "androidx.viewpager2:viewpager2:1.1.0-alpha01",
             "core_ktx"                : "androidx.core:core-ktx:$versions.core_ktx",
-            "legacy"                  : "androidx.legacy:legacy-support-v4:$versions.appcompat",
+            "legacy"                  : "androidx.legacy:legacy-support-v4:1.0.0",
             "constraintlayout"        : "androidx.constraintlayout:constraintlayout:$versions.constraintlayout",
             "navigation_fragment"     : "androidx.navigation:navigation-fragment-ktx:$versions.navigation",
             "navigation_ui"           : "androidx.navigation:navigation-ui-ktx:$versions.navigation",
@@ -52,7 +53,9 @@ ext {
             //okhttp log拦截器
             "okhttp_log"              : "com.squareup.okhttp3:logging-interceptor:$versions.okhttp",
 
-
+            "livedata"                : "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06",
+            "viewmodel"               : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06",
+            "extension"               : "androidx.lifecycle:lifecycle-extensions:2.2.0",
 
 
             "design"                  : "com.android.support:design:28.0.0",

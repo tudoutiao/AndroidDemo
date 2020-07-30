@@ -16,6 +16,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    dataBinding {
+        enabled true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,8 +45,13 @@ dependencies {
     implementation rootProject.ext.dependencies["navigation_ui"]
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["okhttp_log"]
+    implementation rootProject.ext.dependencies["viewpager2"]
+    implementation rootProject.ext.dependencies["material"]
+    implementation rootProject.ext.dependencies["livedata"]
+    implementation rootProject.ext.dependencies["viewmodel"]
+    implementation rootProject.ext.dependencies["extension"]
+    implementation rootProject.ext.dependencies["legacy"]
 
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

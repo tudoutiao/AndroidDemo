@@ -25,6 +25,7 @@
             android:id="@+id/navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:itemIconTint="@drawable/main_bottom_color_selector"
             app:itemTextColor="@drawable/main_bottom_color_selector"
             app:layout_constraintBottom_toBottomOf="@id/navigation_view"

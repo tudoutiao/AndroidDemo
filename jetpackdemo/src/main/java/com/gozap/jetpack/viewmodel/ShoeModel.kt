@@ -74,9 +74,9 @@ class ShoeModel constructor(shoeRepository: ShoeRepository) : ViewModel() {
 
 
     companion object {
-        public const val ALL = "所有"
-        public const val NIKE = "Nike"
-        public const val ADIDAS = "Adidas"
-        public const val OTHER = "other"
+         const val ALL = "所有"
+         const val NIKE = "Nike"
+         const val ADIDAS = "Adidas"
+         const val OTHER = "other"
     }
 }

@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gozap.mine.R
+import com.gozap.mine.databinding.FragmentGankBinding
+import com.gozap.mine.ui.adapter.FragmentAdapter
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -16,6 +19,12 @@ private const val ARG_PARAM2 = "param2"
 class GankFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
+    lateinit var binding: FragmentGankBinding
+    val mTitles by lazy {
+        requireActivity().resources.getStringArray(R.array.index_tab)
+    }
+    lateinit var fragmentAdapter: FragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +38,15 @@ class GankFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gank, container, false)
+        binding = FragmentGankBinding.inflate(inflater, container, false)
+        fragmentAdapter = FragmentAdapter(this, mTitles)
+        binding.vpIndexContent.adapter = fragmentAdapter
+
+        TabLayoutMediator(binding.tlIndexHead, binding.vpIndexContent) { tab, position ->
+            tab.text = mTitles[position]
+        }.attach()
+
+        return binding.root
     }
 
     companion object {

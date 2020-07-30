@@ -1,6 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <string name="app_name">My Application</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bottomSheet">BottomSheet \n1、BottomSheet控件 \n2、https://github.com/soarcn/BottomSheet</string>
+
+    <string name="share">Share</string>
+    <string name="upload">Upload</string>
+    <string name="copy">Copy</string>
+    <string name="print">Print this page</string>
+    <string name="call">Call</string>
+    <string name="help">Help</string>
+    <string name="bottomsheet">BottomSheet Sample</string>
+
 </resources>

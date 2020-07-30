@@ -70,7 +70,6 @@ class ApiManager {
                             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                             .addInterceptor(new HandleErrorInterceptor())
-                            .addInterceptor(new LoggingInterceptor())
                             .build();
                 }
             }
@@ -176,7 +175,11 @@ class ApiManager {
                     if (charset != null && contentLength != 0) {
                         String result = buffer.clone().readString(charset);
                         Log.e("http", " response.body():" + result);
-                        intercept(response, request.url().toString(), result);
+                        try {
+                            intercept(response, request.url().toString(), result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

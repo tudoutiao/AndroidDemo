@@ -12,25 +12,24 @@ class ShoeRepository constructor(var shoeDao: ShoeDao) {
     /**
      * 通过id的范围寻找鞋子
      */
-    fun getPageShoes(startIndex: Long, endIndex: Long): List<Shoe> =
-        shoeDao.findShoesByIndexRange(startIndex, endIndex)
+    fun getPageShoes(startIndex:Long,endIndex:Long):List<Shoe> = shoeDao.findShoesByIndexRange(startIndex,endIndex)
 
     fun getAllShoes() = shoeDao.getAllShoesLD()
 
     /**
      * 通过品牌查询鞋子
      */
-    fun getShoesByBrand(brand: Array<String>) = shoeDao.findShoesByBrandLD(brand)
+    fun getShoesByBrand(brand:Array<String>) = shoeDao.findShoesByBrandLD(brand)
 
     /**
      * 通过Id查询一双鞋
      */
-    fun getShoeById(id: Long) = shoeDao.findShoeByIdLD(id)
+    fun getShoeById(id:Long) = shoeDao.findShoeByIdLD(id)
 
     /**
      * 查询用户收藏的鞋
      */
-    fun getShoesByUserId(userId: Long) = shoeDao.findShoesByUserId(userId)
+    fun getShoesByUserId(userId:Long) = shoeDao.findShoesByUserId(userId)
 
     /**
      * 插入鞋子的集合

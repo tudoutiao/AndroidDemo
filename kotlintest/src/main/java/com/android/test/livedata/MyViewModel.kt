@@ -1,8 +1,6 @@
 package com.android.test.livedata
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.android.test.bean.User
 
 /**
@@ -16,12 +14,17 @@ class MyViewModel : ViewModel() {
             loadUsers()
         }
     }
+    val userName: LiveData<String> = Transformations.map(user) {
+            user -> "${user.name} ${user.name}"
+    }
 
     fun getUsers(): LiveData<User> {
         return user
     }
 
     private fun loadUsers() {
-        // Do an asynchronous operation to fetch users.
+        var user = User()
+        user.name = "123"
+        user.age = "123"
     }
 }

@@ -14,11 +14,7 @@
 
         </activity>
         <activity android:name=".view.ScrollActivity2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".view.ScrollActivity3">
 
@@ -26,7 +22,13 @@
         <activity android:name=".LazyActivity">
 
         </activity>
-        <activity android:name=".livedata.LiveDataActivity"></activity>
+        <activity android:name=".livedata.LiveDataActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".dragger.Dagger2Activity" />
         <activity android:name=".dragger.DaggerActivity" />
         <activity android:name=".databind.InverseBindActivity" />

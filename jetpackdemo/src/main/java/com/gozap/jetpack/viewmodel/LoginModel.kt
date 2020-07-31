@@ -3,7 +3,9 @@ package com.gozap.jetpack.ui.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
+import android.widget.EditText
 import android.widget.Toast
+import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import com.gozap.jetpack.ui.BaseApplication.Companion.context
 import com.gozap.jetpack.ui.MainActivity

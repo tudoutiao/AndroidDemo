@@ -16,6 +16,7 @@ import com.gozap.jetpack.util.writeBitmapToFile
 
 /**
  * 模糊处理的Worker
+ * 输入输出任务，需要参数传递
  */
 class BlurWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     private var TAG: String = this::class.java.simpleName

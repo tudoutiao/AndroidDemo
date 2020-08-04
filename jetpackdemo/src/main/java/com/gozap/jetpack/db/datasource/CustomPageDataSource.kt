@@ -9,6 +9,10 @@ import com.gozap.jetpack.ui.db.respository.ShoeRepository
 /**
  * Create by liuxue on 2020/5/11 0011.
  * description:
+ * 自定义PageKeyedDataSource
+ * 演示Page库的时候使用
+ *
+ * 如果您加载的网页嵌入了上一页/下一页的键，请使用 PageKeyedDataSource
  */
 
 class CustomPageDataSource (var shoeRepository: ShoeRepository):PageKeyedDataSource<Int,Shoe>(){
@@ -22,7 +26,6 @@ class CustomPageDataSource (var shoeRepository: ShoeRepository):PageKeyedDataSou
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Shoe>
     ) {
-        TODO("Not yet implemented")
         val startIndex = 0L
         val endIndex: Long = 0L + params.requestedLoadSize
         val shoes = shoeRepository.getPageShoes(startIndex, endIndex)

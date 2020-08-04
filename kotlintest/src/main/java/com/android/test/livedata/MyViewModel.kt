@@ -7,7 +7,7 @@ import com.android.test.bean.User
  * Create by liuxue on 2020/5/9 0009.
  * description:
  */
-class MyViewModel : ViewModel() {
+class MyViewModel(val data:String) : ViewModel() {
 
     val user: MutableLiveData<User> by lazy {
         MutableLiveData<User>().also {

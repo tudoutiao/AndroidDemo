@@ -1,41 +1,39 @@
-package com.gozap.jetpack.ui.ui.adapter
+package com.gozap.jetpack.ui.adapter
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gozap.jetpack.databinding.ShoeRecyclerItemBinding
+import com.gozap.jetpack.databinding.FavouriteRecyclerItemBinding
 import com.gozap.jetpack.ui.common.BaseConstant
 import com.gozap.jetpack.ui.db.data.Shoe
 import com.gozap.jetpack.ui.ui.activity.DetailActivity
+import com.gozap.jetpack.ui.ui.adapter.ShoeDiffCallback
 
 /**
- * Create by liuxue on 2020/5/11 0011.
+ * Create by liuxue on 2020/8/4 0004.
  * description:
  */
+class FavouriteAdapter(val context: Context) :
+    ListAdapter<Shoe, FavouriteAdapter.FavouriteViewHolder>(ShoeDiffCallback()) {
 
-class ShoeAdapter constructor(var context: Context) :
-    PagedListAdapter<Shoe, ShoeAdapter.MyViewHolder>(ShoeDiffCallback()) {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
-            ShoeRecyclerItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent, false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
+        return FavouriteViewHolder(
+            FavouriteRecyclerItemBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val shoe = getItem(position)
-        holder.apply {
-            bind(onCreateListener(shoe!!.id), shoe)
-            itemView.tag = shoe
-        }
+    override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
+        var shoe = getItem(position)
+        holder.bind(onCreateListener(shoe.id), shoe)
     }
 
     /**
@@ -49,8 +47,8 @@ class ShoeAdapter constructor(var context: Context) :
         }
     }
 
-
-    class MyViewHolder(private val binding: ShoeRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class FavouriteViewHolder(private val binding: FavouriteRecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(listener: View.OnClickListener, item: Shoe) {
             binding.apply {
@@ -59,8 +57,6 @@ class ShoeAdapter constructor(var context: Context) :
                 executePendingBindings()
             }
         }
-
     }
-
 
 }

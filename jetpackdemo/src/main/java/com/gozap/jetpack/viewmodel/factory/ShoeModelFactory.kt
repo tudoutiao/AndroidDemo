@@ -1,4 +1,4 @@
-package com.gozap.jetpack.viewmodel
+package com.gozap.jetpack.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

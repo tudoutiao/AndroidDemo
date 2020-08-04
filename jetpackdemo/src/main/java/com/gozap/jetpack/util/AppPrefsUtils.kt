@@ -18,6 +18,7 @@ object AppPrefsUtils  {
         mk = MMKV.defaultMMKV()
     }
 
+
     /*
          Boolean数据
       */

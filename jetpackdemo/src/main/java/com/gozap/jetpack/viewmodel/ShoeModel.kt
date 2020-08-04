@@ -21,6 +21,7 @@ class ShoeModel constructor(shoeRepository: ShoeRepository) : ViewModel() {
 
     // 鞋子集合的观察类
     val shoes: LiveData<PagedList<Shoe>> = brand.switchMap {
+
         // Room数据库查询，只要知道返回的是LiveData<List<Shoe>>即可
         if (it == ALL) {
             // LivePagedListBuilder<Int,Shoe>( shoeRepository.getAllShoes(),PagedList.Config.Builder()
@@ -32,6 +33,7 @@ class ShoeModel constructor(shoeRepository: ShoeRepository) : ViewModel() {
                     .setInitialLoadSizeHint(10) // 预加载的数量
                     .build()
             ).build()
+
             //shoeRepository.getAllShoes()
         } else {
             val array: Array<String> =

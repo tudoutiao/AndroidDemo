@@ -62,10 +62,10 @@ class WelcomeFragment : Fragment() {
         btn_register.setOnClickListener {
 //            it.findNavController().navigate(R.id.registerFragment) 使用destination Id  navOptions 动画无效
 //            it.findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
-            Navigation.createNavigateOnClickListener(R.id.action_welcome_to_register, null)
+//            Navigation.createNavigateOnClickListener(R.id.action_welcome_to_register, null)
             // =====Safe Args
-//            val action = WelcomeFragmentDirections.actionWelcomeToRegister("TeaOf1995@Gamil.com")
-//            findNavController().navigate(action)
+            val action = WelcomeFragmentDirections.actionWelcomeToRegister("TeaOf1995@Gamil.com")
+            findNavController().navigate(action)
         }
     }
 

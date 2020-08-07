@@ -3,6 +3,7 @@ package com.gozap.jetpack.viewmodel
 import android.content.Context
 import com.gozap.jetpack.db.RepositoryProvider
 import com.gozap.jetpack.ui.common.BaseConstant
+import com.gozap.jetpack.ui.db.respository.FavouriteShoeRepository
 import com.gozap.jetpack.ui.db.respository.ShoeRepository
 import com.gozap.jetpack.ui.db.respository.UserRepository
 import com.gozap.jetpack.ui.util.AppPrefsUtils
@@ -41,6 +42,16 @@ object CustomViewModelProvider {
     fun providerMeMedel(context: Context): MeModelFactory {
         val repository: UserRepository = RepositoryProvider.providerUserRepository(context)
         return MeModelFactory(repository)
+    }
+
+    fun providerDetailMedel(
+        context: Context,
+        shoeId: Long,
+        userId: Long
+    ): FavouriteShoeModelFactory {
+        val repository: ShoeRepository = RepositoryProvider.providerShoeRepository(context)
+        val favShoeRepository: FavouriteShoeRepository = RepositoryProvider.providerFavouriteShoeRepository(context)
+        return FavouriteShoeModelFactory(repository,favShoeRepository,shoeId,userId)
     }
 
 }

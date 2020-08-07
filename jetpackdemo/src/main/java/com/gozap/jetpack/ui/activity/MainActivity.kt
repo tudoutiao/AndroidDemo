@@ -1,4 +1,4 @@
-package com.gozap.jetpack.ui
+package com.gozap.jetpack.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

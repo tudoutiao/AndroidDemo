@@ -1,14 +1,12 @@
 package com.gozap.jetpack.ui.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gozap.jetpack.databinding.ShoeRecyclerItemBinding
-import com.gozap.jetpack.ui.common.BaseConstant
 import com.gozap.jetpack.ui.db.data.Shoe
 import com.gozap.jetpack.ui.ui.activity.DetailActivity
 
@@ -43,14 +41,13 @@ class ShoeAdapter constructor(var context: Context) :
      */
     private fun onCreateListener(id: Long): View.OnClickListener {
         return View.OnClickListener {
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(BaseConstant.DETAIL_SHOE_ID, id)
-            context.startActivity(intent)
+            DetailActivity.startDetailActivity(context, id)
         }
     }
 
 
-    class MyViewHolder(private val binding: ShoeRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ShoeRecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(listener: View.OnClickListener, item: Shoe) {
             binding.apply {

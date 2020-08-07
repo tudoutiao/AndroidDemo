@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.gozap.jetpack.R
 import com.gozap.jetpack.databinding.FragmentLoginBinding
-import com.gozap.jetpack.ui.MainActivity
+import com.gozap.jetpack.ui.activity.MainActivity
 import com.gozap.jetpack.ui.common.BaseConstant
 import com.gozap.jetpack.ui.util.AppPrefsUtils
 import com.gozap.jetpack.ui.viewmodel.LoginModel
@@ -49,6 +50,7 @@ class LoginFragment : Fragment() {
 
 
     private fun onSubscribeUi(binding: FragmentLoginBinding) {
+
         binding.model = loginModel
         binding.activity = activity
         // 如果使用LiveData下面这句必须加上 ！！！????

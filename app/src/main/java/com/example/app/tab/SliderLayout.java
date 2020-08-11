@@ -61,7 +61,6 @@ class SliderLayout extends LinearLayout {
             int paddingHorizontal = 5;
             int bottom = getHeight() - paddingVertical;
             int right = width - paddingHorizontal;
-            Log.i("---", "left :" + paddingVertical + "--top :" + paddingHorizontal + "--right :" + right + "--bottom :" + bottom);
             mSliderImage.setBounds(paddingVertical, paddingHorizontal, right, bottom);
             mSliderImage.draw(canvas);
         }

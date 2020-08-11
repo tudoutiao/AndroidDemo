@@ -11,6 +11,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.app.R;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * TabLayout自定义选择背景滑块
+ * https://www.jianshu.com/p/701d25f36c04
+ */
 public class TabLayoutActivity extends AppCompatActivity {
     private MViewPagerAdapter mSectionsPagerAdapter;
 

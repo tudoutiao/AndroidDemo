@@ -51,6 +51,10 @@ dependencies {
     implementation rootProject.ext.dependencies["viewmodel"]
     implementation rootProject.ext.dependencies["extension"]
     implementation rootProject.ext.dependencies["legacy"]
+    implementation rootProject.ext.dependencies["retrofit2"]
+    implementation rootProject.ext.dependencies["converter"]
+    implementation rootProject.ext.dependencies["rfadrx"]
+    implementation rootProject.ext.dependencies["rxjava2"]
 
 
     testImplementation 'junit:junit:4.12'

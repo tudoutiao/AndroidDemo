@@ -5,8 +5,11 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.gson.GsonBuilder;
+import com.gozap.mine.BuildConfig;
 import com.gozap.mine.ui.App;
 import com.gozap.mine.util.NetworkUtils;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -32,14 +35,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.GzipSource;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Create by liuxue on 2020/7/27 0027.
  * description:
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-class ApiManager {
-    private static ApiManager sApiManager;
+public class AppClient {
+    private static AppClient sApiManager;
     private static long CONNECT_TIMEOUT = 60L;
     private static long READ_TIMEOUT = 10L;
     private static long WRITE_TIMEOUT = 10L;
@@ -54,6 +59,45 @@ class ApiManager {
     private static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
     private static OkHttpClient mOkHttpClient;
 
+
+    public Retrofit mRetrofit;
+
+    public Retrofit getRetrofit(String url) {
+        if (mRetrofit == null) {
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+            if (BuildConfig.DEBUG) {
+                // Log信息拦截器
+                HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                //设置 Debug Log 模式
+                builder.addInterceptor(loggingInterceptor);
+            }
+            getOkHttpClient();
+            mRetrofit = new Retrofit.Builder()
+                    .baseUrl(url)
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(mOkHttpClient)
+                    .build();
+        }
+        return mRetrofit;
+    }
+
+
+    /**
+     * 获取Service
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> T create(Class<T> clazz, String baseUrl) {
+        getRetrofit(baseUrl);
+        return mRetrofit.create(clazz);
+    }
+
+
     /**
      * 获取OkHttpClient实例
      *
@@ -61,7 +105,7 @@ class ApiManager {
      */
     private static OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
-            synchronized (ApiManager.class) {
+            synchronized (AppClient.class) {
                 Cache cache = new Cache(new File(App.getInstance().getApplicationContext().getCacheDir(), "HttpCache"), 1024 * 1024 * 100);
                 if (mOkHttpClient == null) {
                     mOkHttpClient = new OkHttpClient.Builder()
@@ -69,6 +113,7 @@ class ApiManager {
                             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                            .addInterceptor(mRewriteCacheControlInterceptor)
                             .addInterceptor(new HandleErrorInterceptor())
                             .build();
                 }
@@ -78,18 +123,18 @@ class ApiManager {
     }
 
     //获取ApiManager的单例
-    public static ApiManager getInstance() {
+    public static AppClient getInstance() {
         if (sApiManager == null) {
-            synchronized (ApiManager.class) {
+            synchronized (AppClient.class) {
                 if (sApiManager == null) {
-                    sApiManager = new ApiManager();
+                    sApiManager = new AppClient();
                 }
             }
         }
         return sApiManager;
     }
 
-    private ApiManager() {
+    private AppClient() {
     }
 
 

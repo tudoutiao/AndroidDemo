@@ -15,7 +15,6 @@ import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gozap.jetpack.common.listener.SimpleAnimation
 import com.gozap.jetpack.databinding.FragmentShoeBinding
@@ -51,7 +50,7 @@ class ShoeFragment : Fragment() {
     // FloatingActionButton宽度和高度，宽高一样
     private var width: Int = 0
 
-     val viewModel: ShoeModel by viewModels {
+    val viewModel: ShoeModel by viewModels {
         CustomViewModelProvider.providerShoeModel(requireContext())
     }
 
@@ -62,6 +61,8 @@ class ShoeFragment : Fragment() {
     ): View? {
         val binding: FragmentShoeBinding = FragmentShoeBinding.inflate(inflater, container, false)
         context ?: return binding.root
+
+        Log.e("model", "ShoeFragment shoeModel :" + viewModel)
 
         val adapter = ShoeAdapter(context!!)
         binding.recycler.adapter = adapter

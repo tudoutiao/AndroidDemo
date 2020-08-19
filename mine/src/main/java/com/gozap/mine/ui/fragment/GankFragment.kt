@@ -16,14 +16,17 @@ private const val ARG_PARAM2 = "param2"
 /**
  * 干货
  */
-class GankFragment : Fragment() {
+class GankFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
     lateinit var binding: FragmentGankBinding
+
     val mTitles by lazy {
         requireActivity().resources.getStringArray(R.array.index_tab)
     }
+
+    var mFragments= arrayListOf<BaseFragment>()
     lateinit var fragmentAdapter: FragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +42,34 @@ class GankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGankBinding.inflate(inflater, container, false)
-        fragmentAdapter = FragmentAdapter(this, mTitles)
+        initData()
+        initView()
+
+        return binding.root
+    }
+
+
+    fun initData() {
+        for (index in mTitles.indices) {
+            var fragment = GanHuoFragment()
+            fragment.arguments = Bundle().apply {
+                putInt("index", index)
+                putString("title", mTitles.get(index))
+            }
+            mFragments.add(fragment)
+        }
+    }
+
+    fun initView() {
+        fragmentAdapter = FragmentAdapter(this, mTitles, mFragments.toTypedArray())
         binding.vpIndexContent.adapter = fragmentAdapter
 
         TabLayoutMediator(binding.tlIndexHead, binding.vpIndexContent) { tab, position ->
             tab.text = mTitles[position]
         }.attach()
 
-        return binding.root
     }
+
 
     companion object {
         @JvmStatic

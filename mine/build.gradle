@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 25
     buildToolsVersion "29.0.2"
 
     defaultConfig {
@@ -32,6 +32,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 }
 
 dependencies {
@@ -55,6 +59,7 @@ dependencies {
     implementation rootProject.ext.dependencies["converter"]
     implementation rootProject.ext.dependencies["rfadrx"]
     implementation rootProject.ext.dependencies["rxjava2"]
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
 
 
     testImplementation 'junit:junit:4.12'

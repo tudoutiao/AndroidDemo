@@ -1,17 +1,19 @@
 package com.gozap.mine.ui
 
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gozap.mine.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.gozap.mine.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
-
+    lateinit var dataBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         var navController = findNavController(R.id.my_nav_host_fragment)
-        navigation_view.setupWithNavController(navController);
+        dataBinding.navigationView.setupWithNavController(navController);
+
     }
 }

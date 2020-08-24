@@ -9,9 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
-import com.test.admin.conurbations.R;
-import com.test.admin.conurbations.utils.PinyinUtil;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,46 +71,4 @@ public class Contact {
 
     public static ArrayList<Contact> phoneInfoList = new ArrayList<>();
 
-    public static ArrayList<Contact> getNumber(Context context) {
-
-        Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
-        ContentResolver resolver = context.getContentResolver();
-        String phoneNumber;
-        String phoneName;
-        String phoneIndex;
-
-        Long contactId;
-        Long photoId;
-        Bitmap contactPhoto = null;
-        while (cursor.moveToNext()) {
-            //获取通讯录电话号码
-            phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-            //获取通讯录联系人姓名
-            phoneName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            //根据联系人姓名获得其名字的首字母（并转成大写）
-            phoneIndex = PinyinUtil.hanziToPinyin(phoneName).substring(0, 1).toUpperCase();
-            //获取通讯录联系人ID
-            contactId = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
-            //获取通讯录联系人头像ID
-            photoId = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID));
-            //获取手机联系人头像
-            if (photoId > 0) {
-                Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-                InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(resolver, uri);
-                contactPhoto = BitmapFactory.decodeStream(input);
-            } else {
-                //没有头像或者获取失败给默认头像
-                contactPhoto = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_logo);
-            }
-            Contact info = new Contact(phoneIndex, phoneName, phoneNumber, contactPhoto);
-            //Log.i("number:"+phoneIndex,phoneName+":"+phoneNumber);
-            phoneInfoList.add(info);
-        }
-
-        //利用HashSet对List去重
-        phoneInfoList = new ArrayList<>(new HashSet<>(phoneInfoList));
-        //按照字母从A-Z排序
-        Collections.sort(phoneInfoList, (o1, o2) -> o1.index.compareTo(o2.index));
-        return phoneInfoList;
-    }
 }

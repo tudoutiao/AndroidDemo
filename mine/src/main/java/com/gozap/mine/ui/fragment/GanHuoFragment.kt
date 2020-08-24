@@ -33,7 +33,7 @@ class GanHuoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.takeIf { it.containsKey("index") }?.apply {
-            binding.text1.text = getInt("index").toString()
+//            binding.text1.text = getInt("index").toString()
         }
     }
 

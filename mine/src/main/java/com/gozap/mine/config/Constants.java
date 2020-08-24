@@ -10,6 +10,9 @@ import java.util.Date;
  */
 public class Constants {
 
+    public static final String BASE_URL = "https://gank.io/api/";
+
+
     // 创建一个以当前时间为名称的文件
     public static final String pathFileName = Environment.getExternalStorageDirectory() + "/" + getPhotoFileName();
 

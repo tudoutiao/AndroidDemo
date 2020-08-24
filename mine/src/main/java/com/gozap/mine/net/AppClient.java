@@ -44,7 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AppClient {
-    private static AppClient sApiManager;
+    public static AppClient sApiManager;
     private static long CONNECT_TIMEOUT = 60L;
     private static long READ_TIMEOUT = 10L;
     private static long WRITE_TIMEOUT = 10L;

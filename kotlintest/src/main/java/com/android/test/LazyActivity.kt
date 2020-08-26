@@ -50,6 +50,8 @@ class LazyActivity : AppCompatActivity() {
         var user: User = User()
         user.name = "第一次赋值"
         user.name = "第二次赋值"
+
+
         //================
         val b = BaseImpl(10)
         Deviced(b).print()

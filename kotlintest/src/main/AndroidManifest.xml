@@ -10,30 +10,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ScrollActivity">
-
-        </activity>
-        <activity android:name=".view.ScrollActivity2">
-
-        </activity>
-        <activity android:name=".view.ScrollActivity3">
-
-        </activity>
-        <activity android:name=".LazyActivity">
-
-        </activity>
-        <activity android:name=".livedata.LiveDataActivity">
+        <activity android:name=".test.AidlClientActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".test.TestAidlService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".test.ActivityB" />
+        <activity android:name=".test.TestServiceActivity">
+
+        </activity>
+        <activity android:name=".view.ScrollActivity" />
+        <activity android:name=".view.ScrollActivity2" />
+        <activity android:name=".view.ScrollActivity3" />
+        <activity android:name=".LazyActivity" />
+        <activity android:name=".livedata.LiveDataActivity" />
         <activity android:name=".dragger.Dagger2Activity" />
         <activity android:name=".dragger.DaggerActivity" />
         <activity android:name=".databind.InverseBindActivity" />
         <activity android:name=".databind.DataBindActivity" />
         <activity android:name=".MainActivity" />
+
+        <service android:name=".test.TestOneService" />
+        <service android:name=".test.TestTwoService" />
     </application>
 
 </manifest>

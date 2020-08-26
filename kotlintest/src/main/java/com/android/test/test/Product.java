@@ -1,6 +1,8 @@
-package com.android.test.model;
+package com.android.test.test;
 
-
+/**
+ * 工厂模式
+ */
 class Test {
     public static void main(String[] args) {
         //产品A

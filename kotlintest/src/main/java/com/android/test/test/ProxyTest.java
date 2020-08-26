@@ -1,6 +1,4 @@
-package com.android.test.model;
-
-import android.app.ActivityManager;
+package com.android.test.test;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -8,7 +6,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * Create by liuxue on 2020/8/22 0022.
- * description:
+ * description:代理模式
  */
 class ProxyTest {
     public static void main(String[] args) {

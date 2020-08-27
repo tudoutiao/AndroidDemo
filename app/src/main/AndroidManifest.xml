@@ -16,18 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".tab.TabLayoutActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".bottomsheet.BottomSheetActivity">
 
         </activity>
         <activity android:name=".refresh.RefreshActivity"></activity>
         <activity android:name=".test.ScrollTestActivity" />
-        <activity android:name=".swip.SwipeMenuActivity" />
+        <activity android:name=".swip.SwipeMenuActivity" > <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity
             android:name=".MainJavaActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

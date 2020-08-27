@@ -8,8 +8,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-public class TestAidlService extends Service {
-    public TestAidlService() {
+public class AidlService extends Service {
+    public AidlService() {
     }
 
     private String name;

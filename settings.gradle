@@ -1,3 +1,4 @@
+include ':basetest'
 include ':mylibrary'
 include ':app', ':jzvideoplayer', ':kotlintest'
 include ':jetpackdemo'

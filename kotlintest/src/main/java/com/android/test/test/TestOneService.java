@@ -1,5 +1,6 @@
 package com.android.test.test;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -28,7 +29,7 @@ public class TestOneService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("Kathy", "onStartCommand - Thread ID = " + Thread.currentThread().getId() + "--" + intent.getStringExtra("from"));
 //        return super.onStartCommand(intent, flags, startId);
-        return START_STICKY;
+        return Service.START_STICKY;
     }
 
 
@@ -44,6 +45,7 @@ public class TestOneService extends Service {
     public void onDestroy() {
         Log.i("Kathy", "onDestroy - Thread ID = " + Thread.currentThread().getId());
         super.onDestroy();
+        startService(new Intent(this,TestOneService.class));
     }
 
     @Override

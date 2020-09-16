@@ -37,7 +37,7 @@ public class TestTwoService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("Kathy", "TestTwoService - onStartCommand - startId = " + startId + ", Thread = " + Thread.currentThread().getName());
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Nullable

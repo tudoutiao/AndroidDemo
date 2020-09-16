@@ -12,11 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".test.ProvideTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -25,9 +21,6 @@
             android:exported="true" />
 
         <activity android:name=".test.ActivityB" />
-        <activity android:name=".test.TestServiceActivity">
-
-        </activity>
         <activity android:name=".view.ScrollActivity" />
         <activity android:name=".view.ScrollActivity2" />
         <activity android:name=".view.ScrollActivity3" />
@@ -37,9 +30,20 @@
         <activity android:name=".dragger.DaggerActivity" />
         <activity android:name=".databind.InverseBindActivity" />
         <activity android:name=".databind.DataBindActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <service android:name=".test.TestOneService" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".test.TestServiceActivity">
+
+        </activity>
+
+        <service android:name=".test.TestOneService"/>
         <service android:name=".test.TestTwoService" />
     </application>
 

@@ -267,9 +267,10 @@ public class SwipeMenuLayout extends ViewGroup {
         return super.onInterceptTouchEvent(ev);
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-//        Log.e("---swip", "onTouchEvent :" + ev.getAction());
+        Log.e("---swip", "onTouchEvent :" + ev.getAction());
 
         //如果关闭了侧滑 直接super
         if (!this.isEnableSwipe) {

@@ -61,6 +61,7 @@ public class MainJavaActivity extends AppCompatActivity implements View.OnClickL
         mFragmentTransaction.add(R.id.fragment, mFragments[2]);
         mFragmentTransaction.add(R.id.fragment, mFragments[3]);
 
+
         mFragmentTransaction.hide(mFragments[0]).hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]);
         mFragmentTransaction.show(mFragments[curIndex]).commitAllowingStateLoss();
     }

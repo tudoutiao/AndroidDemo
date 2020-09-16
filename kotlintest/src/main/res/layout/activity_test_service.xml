@@ -13,20 +13,20 @@
             android:id="@+id/start1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startService1" />
+            android:text="startSer1" />
 
         <Button
             android:id="@+id/start2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startService2"
+            android:text="startSer2"
             app:layout_constraintLeft_toRightOf="@id/start1" />
 
         <Button
             android:id="@+id/start3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startService3"
+            android:text="startSer3"
             app:layout_constraintLeft_toRightOf="@id/start2" />
 
         <Button

@@ -11,7 +11,4 @@ import com.gozap.mine.model.Listing
 
 class GankRepository {
 
-    fun getDayGank() : Listing<Gank> {
-        Bundle
-    }
 }

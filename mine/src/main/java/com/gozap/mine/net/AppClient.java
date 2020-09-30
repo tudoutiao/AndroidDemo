@@ -142,29 +142,26 @@ public class AppClient {
      * 云端响应头拦截器，用来配置缓存策略
      * Dangerous interceptor that rewrites the server's cache-control header.
      */
-    private static final Interceptor mRewriteCacheControlInterceptor = new Interceptor() {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-            if (!NetworkUtils.isConnected(App.getInstance().getApplicationContext())) {
-                request = request.newBuilder()
-                        .cacheControl(CacheControl.FORCE_CACHE)
-                        .build();
-            }
-            Response originalResponse = chain.proceed(request);
-            if (NetworkUtils.isConnected(App.getInstance().getApplicationContext())) {
-                //有网的时候读接口上的@Headers里的配置，可以在这里进行统一的设置
-                String cacheControl = request.cacheControl().toString();
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", cacheControl)
-                        .removeHeader("Pragma")
-                        .build();
-            } else {
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_CONTROL_CACHE)
-                        .removeHeader("Pragma")
-                        .build();
-            }
+    private static final Interceptor mRewriteCacheControlInterceptor = chain -> {
+        Request request = chain.request();
+        if (!NetworkUtils.isConnected(App.getInstance().getApplicationContext())) {
+            request = request.newBuilder()
+                    .cacheControl(CacheControl.FORCE_CACHE)
+                    .build();
+        }
+        Response originalResponse = chain.proceed(request);
+        if (NetworkUtils.isConnected(App.getInstance().getApplicationContext())) {
+            //有网的时候读接口上的@Headers里的配置，可以在这里进行统一的设置
+            String cacheControl = request.cacheControl().toString();
+            return originalResponse.newBuilder()
+                    .header("Cache-Control", cacheControl)
+                    .removeHeader("Pragma")
+                    .build();
+        } else {
+            return originalResponse.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_CONTROL_CACHE)
+                    .removeHeader("Pragma")
+                    .build();
         }
     };
 

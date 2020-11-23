@@ -14,7 +14,7 @@ public class AidlService extends Service {
 
     private String name;
 
-    private Binder aidlBinder = new IMyAidlInterface.Stub() {
+    private IBinder aidlBinder = new IMyAidlInterface.Stub() {
         @Override
         public void setName(String s) {
             name = s;

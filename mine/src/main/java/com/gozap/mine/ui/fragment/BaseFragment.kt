@@ -2,10 +2,9 @@ package com.gozap.mine.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 
 /**
  * Create by liuxue on 2020/7/30 0030.
@@ -16,10 +15,19 @@ open class BaseFragment : Fragment(), LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(this)
-
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        addListener()
+    }
 
+    open fun addListener() {
+    }
+
+    open fun initView() {
+    }
 
 
     override fun onPause() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.gozap.mine.config.Constants
 import com.gozap.mine.net.AppClient
 import com.gozap.mine.net.ServiceInterface
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Create by liuxue on 2020/8/19 0019.
@@ -21,6 +22,7 @@ class GankModel : ViewModel() {
     init {
         apiClient.create(ServiceInterface::class.java, Constants.BASE_URL)
     }
+
 
 
 }

@@ -1,3 +1,7 @@
+include ':complier'
+include ':lib'
+include ':annotation'
+include ':new_modular_javapoet'
 include ':basetest'
 include ':mylibrary'
 include ':app', ':jzvideoplayer', ':kotlintest'

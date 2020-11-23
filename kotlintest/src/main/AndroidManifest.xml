@@ -3,6 +3,7 @@
     package="com.android.test">
 
     <uses-permission android:name="com.gozap.PROVIDER_PERMISSION" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -11,9 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".test.ProvideTestActivity">
+        <activity android:name=".coroutine.Test1Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".test.ProvideTestActivity"></activity>
 
         <service
             android:name=".test.AidlService"
@@ -32,18 +38,12 @@
         <activity android:name=".databind.DataBindActivity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:launchMode="singleTask"></activity>
         <activity android:name=".test.TestServiceActivity">
 
         </activity>
 
-        <service android:name=".test.TestOneService"/>
+        <service android:name=".test.TestOneService" />
         <service android:name=".test.TestTwoService" />
     </application>
 

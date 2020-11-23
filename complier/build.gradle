@@ -1,0 +1,17 @@
+import javax.tools.JavaCompiler
+
+apply plugin: 'java-library'
+//编译的时候 干活 生成java文件
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //依赖注解
+    implementation project(path: ':annotation')
+    implementation 'com.google.auto.service:auto-service:1.0-rc7'
+    //帮我们通过类调用的形式来生成java代码
+    implementation 'com.squareup:javapoet:1.13.0'
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.0-rc7'
+
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

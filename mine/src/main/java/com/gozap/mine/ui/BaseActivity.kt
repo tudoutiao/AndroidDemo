@@ -16,6 +16,19 @@ open class BaseActivity : AppCompatActivity(), LifecycleObserver {
         lifecycle.addObserver(MyObserver())
     }
 
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        initView()
+        addListener()
+    }
+
+    private fun addListener() {
+    }
+
+    private fun initView() {
+    }
+
+
     override fun onStart() {
         super.onStart()
         Log.e(javaClass.name, "-------onStart")

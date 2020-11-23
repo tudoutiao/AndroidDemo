@@ -1,5 +1,7 @@
 package com.gozap.basetest.java;
 
+import io.reactivex.Observable;
+
 /**
  * Create by liuxue on 2020/8/31 0031.
  * description:算法

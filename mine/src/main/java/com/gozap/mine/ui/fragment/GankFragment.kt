@@ -43,7 +43,6 @@ class GankFragment : BaseFragment() {
     ): View? {
         binding = FragmentGankBinding.inflate(inflater, container, false)
         initData()
-        initView()
 
         return binding.root
     }
@@ -60,7 +59,7 @@ class GankFragment : BaseFragment() {
         }
     }
 
-    fun initView() {
+    override fun initView() {
         fragmentAdapter = FragmentAdapter(this, mTitles, mFragments.toTypedArray())
         binding.vpIndexContent.adapter = fragmentAdapter
 

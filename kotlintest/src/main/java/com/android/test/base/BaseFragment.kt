@@ -66,7 +66,7 @@ class BaseFragment : Fragment() {
 
     }
 
-    companion object {
+    companion object{
         fun newInstance(param1: String, param2: String) =
             BaseFragment().apply {
                 arguments = Bundle().apply {

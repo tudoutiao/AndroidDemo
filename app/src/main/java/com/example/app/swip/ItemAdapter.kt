@@ -31,6 +31,7 @@ class ItemAdapter(mShowItems: List<Bean?>?) :
             mSwipe.isClickMenuAndClose = false
         }
         (helper.getView<View>(R.id.tv_content) as TextView).text = text
+
         if (item.imgList!!.size > 0) {
             (helper.getView<View>(R.id.imgList) as ImageListView).addImageList(item.imgList as ArrayList<String>?)
             (helper.getView<View>(R.id.imgList) as ImageListView).visibility = View.VISIBLE

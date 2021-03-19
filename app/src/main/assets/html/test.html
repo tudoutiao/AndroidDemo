@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<nav>我是Js页面，下面演示一些操作</nav>
+<br/>
+<br/>
+<button onclick="takeJava()">点击吊起android方法</button>
+<br/>
+<br/>
+<input type="button" value="JavascriptInterface" onclick="takeJava()"/>
+<br/>
+<br/>
+<a href="http://www.w3school.com.cn">跳转</a>
+
+</body>
+<script>
+		/**
+		 * java 要吊起的方法
+		 */
+		function jsClick() {
+			alert("我是js的提示")
+		}
+
+		function jsClickWithParams(message){
+		    alert(message);
+		}
+
+
+		/**
+		 * 吊起java方法
+		 * @parms window js方法 需要引用它
+		 * @parms WebIntentCallBack 是我们上边 填写的名称（标示）
+		 * @parms jsActionCallBack 我们在java中使用 @JavascriptInterface声明的方法
+		 */
+
+		function takeJava() {
+			window.WebIntentCallBack.jsActionCallBack("我是来自js的输入内容")
+		}
+
+</script>
+</html>

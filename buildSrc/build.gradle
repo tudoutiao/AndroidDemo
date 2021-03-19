@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+repositories {
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.tools.build:gradle:3.5.3'
+}

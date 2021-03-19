@@ -51,6 +51,7 @@ class SwipeMenuActivity : AppCompatActivity() {
 //            mShowItems.add(bean)
 //        }
 
+
         var adapter = ItemAdapter(mShowItems);
         recycler_view.adapter = adapter;
         adapter.setOnItemClickListener { adapter, view, position ->
